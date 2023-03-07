@@ -1,10 +1,15 @@
-import React from "react";
+import { FC } from "react";
 
 import { Box, InputBase, Typography } from "@mui/material";
 
-function Location() {
+const Location: FC = () => {
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <InputBase
         sx={{ color: "white", fontSize: "22px" }}
         placeholder="Gotenborg"
@@ -12,6 +17,6 @@ function Location() {
       <Typography sx={{ color: "white", fontSize: "14px" }}>Sweden</Typography>
     </Box>
   );
-}
+};
 
 export default Location;
