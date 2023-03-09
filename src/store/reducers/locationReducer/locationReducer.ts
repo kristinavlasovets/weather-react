@@ -4,10 +4,6 @@ import {
   LocationState,
 } from "./interface";
 
-const GET_LOCATION = "GET_LOCATION";
-const GET_LOCATION_SUCCESS = "GET_LOCATION_SUCCESS";
-const GET_LOCATION_ERROR = "GET_LOCATION_ERROR";
-
 const initialState: LocationState = {
   city: "",
   country: "",

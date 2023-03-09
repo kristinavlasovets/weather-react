@@ -1,15 +1,31 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 
 import { Box, InputBase, Typography } from "@mui/material";
-import debounce from "lodash.debounce";
+import { useDispatch } from "react-redux";
+import useTypedSelector from "../../hooks/useTypedSelector";
+import getLocation from "../../store/action-creators/location";
 
 const Location: FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const state = useTypedSelector((state) => state.location);
+  console.log(state);
   const [location, setLocation] = useState<string>("");
+  const [locationOptions, setLocationOptions] = useState<[]>([]);
 
-  const handleOnChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value);
-    console.log(location);
-  }, 600);
+  const getLocationOptions = (value: string) => {
+    fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`,
+    )
+      .then((res) => res.json())
+      .then((data) => setLocationOptions(data));
+  };
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setLocation(value);
+
+    getLocationOptions(value);
+  };
 
   const getLocationData = async () => {
     const lat = 58.7984;
@@ -31,6 +47,12 @@ const Location: FC = () => {
       });
   };
 
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getLocation());
+  // }, []);
+
   return (
     <Box
       sx={{
@@ -43,11 +65,13 @@ const Location: FC = () => {
         placeholder="Gotenborg"
         value={location}
         onChange={handleOnChange}
-        // loadOptions={loadOptions}
       />
+      {locationOptions.map((option: { name: string }) => (
+        <Typography>{option.name}</Typography>
+      ))}
       <Typography
         sx={{ color: "white", fontSize: "14px" }}
-        onClick={getLocationData}
+        // onClick={getLocationData}
       >
         Sweden
       </Typography>

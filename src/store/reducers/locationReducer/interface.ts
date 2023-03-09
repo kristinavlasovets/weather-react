@@ -29,8 +29,3 @@ export type LocationAction =
   | GetLocationAction
   | GetLocationSuccessAction
   | GetLocationErrorAction;
-
-// export interface LocationAction {
-//   type: string;
-//   payload?: any;
-// }
