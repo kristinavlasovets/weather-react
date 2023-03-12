@@ -2,8 +2,11 @@ import { FC } from "react";
 
 import { Box } from "@mui/material";
 import DayItem from "../DayItem";
+import useTypedSelector from "../../hooks/useTypedSelector";
 
 const Forecast: FC = () => {
+  const currentForecastData = useTypedSelector((state) => state.forecast);
+
   return (
     <Box
       sx={{
@@ -17,8 +20,8 @@ const Forecast: FC = () => {
       }}
     >
       <DayItem isFull />
-      {Array(6).map((item) => (
-        <DayItem key={item} />
+      {currentForecastData.forecast.list.slice(1, 7).map((item) => (
+        <DayItem key={item.main.feels_like} temp={item.main.temp} />
       ))}
     </Box>
   );

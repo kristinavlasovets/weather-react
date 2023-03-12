@@ -23,8 +23,7 @@ import { getForecastRequestAction } from "../../store/reducers/forecastReducer/a
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
-  const forecastState = useTypedSelector((state) => state.forecast);
-  console.log(forecastState);
+  const currentForecastData = useTypedSelector((state) => state.forecast);
 
   const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
     null,

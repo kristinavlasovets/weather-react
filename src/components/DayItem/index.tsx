@@ -3,8 +3,13 @@ import { FC } from "react";
 import { Box, Chip, Typography } from "@mui/material";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { DayItemProps } from "./interface";
+import useTypedSelector from "../../hooks/useTypedSelector";
 
-const DayItem: FC<DayItemProps> = ({ isFull = false }) => {
+const DayItem: FC<DayItemProps> = ({ isFull = false, temp }) => {
+  const currentForecastData = useTypedSelector((state) => state.forecast);
+
+  // const week = currentForecastData.forecast.list.slice(1, 7);
+
   return (
     <Box
       sx={{
@@ -36,7 +41,9 @@ const DayItem: FC<DayItemProps> = ({ isFull = false }) => {
               sx={{ mb: "5px", backgroundColor: "#262D41", color: "white" }}
               label="Today"
             />
-            <Typography sx={{ fontSize: "32px" }}> 12°</Typography>
+            <Typography sx={{ fontSize: "32px" }}>
+              {Math.round(currentForecastData?.forecast.list[0].main.temp)}°
+            </Typography>
           </Box>
         </>
       ) : (
@@ -46,7 +53,7 @@ const DayItem: FC<DayItemProps> = ({ isFull = false }) => {
             label="Tue"
           />
           <WbSunnyIcon />
-          <Typography> 12° </Typography>
+          <Typography>{Math.round(temp)}°</Typography>
         </>
       )}
     </Box>
