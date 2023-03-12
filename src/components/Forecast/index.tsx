@@ -17,11 +17,9 @@ const Forecast: FC = () => {
       }}
     >
       <DayItem isFull />
-      {Array(6)
-        .fill("12")
-        .map((item) => (
-          <DayItem key={item} />
-        ))}
+      {Array(6).map((item) => (
+        <DayItem key={item} />
+      ))}
     </Box>
   );
 };

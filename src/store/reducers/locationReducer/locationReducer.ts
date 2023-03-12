@@ -14,7 +14,6 @@ const initialState: LocationState = {
 };
 
 const locationReducer = (
-  // eslint-disable-next-line @typescript-eslint/default-param-last
   state = initialState,
   action: LocationAction,
 ): LocationState => {

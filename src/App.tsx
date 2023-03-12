@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import { Box } from "@mui/material";
 
@@ -8,11 +8,6 @@ import Calendar from "./components/Calendar";
 import Forecast from "./components/Forecast";
 
 const App: FC = () => {
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     console.log(position);
-  //   });
-  // }, []);
   return (
     <Box
       sx={{

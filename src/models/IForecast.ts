@@ -1,3 +1,20 @@
 export interface IForecast {
-  time: string;
+  city: {
+    name: string;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  list: [
+    {
+      main: {
+        feels_like: number;
+        humidity: number;
+        temp: number;
+        temp_max: number;
+        temp_min: number;
+      };
+      weather: [{ main: string; icon: string; description: string }];
+    },
+  ];
 }
