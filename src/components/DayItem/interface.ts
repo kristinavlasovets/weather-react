@@ -1,4 +1,5 @@
 export interface DayItemProps {
   isFull?: boolean;
-  temp?: number;
+  temp: number;
+  icon: string;
 }

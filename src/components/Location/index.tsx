@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 
 import useAppDispatch from "../../hooks/useAppDispatch";
-import useTypedSelector from "../../hooks/useTypedSelector";
 import { IOption } from "../../models/IOption";
 import { ILocation } from "../../models/ILocation";
 import { IForecast } from "../../models/IForecast";
@@ -20,11 +19,11 @@ import {
   GetWeatherPlan,
 } from "../../services/openWeatherService";
 import { getForecastRequestAction } from "../../store/reducers/forecastReducer/actionCreators";
+import useTypedSelector from "../../hooks/useTypedSelector";
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
   const currentForecastData = useTypedSelector((state) => state.forecast);
-
   const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
     null,
   );
@@ -32,6 +31,28 @@ const Location: FC = () => {
   const [city, setCity] = useState<IOption | null>(null);
   const [locationOptions, setLocationOptions] = useState<IOption[]>([]);
   const [forecast, setForecast] = useState<IForecast | null>(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude: lat, longitude: lon } = position.coords;
+      const response = await getWeather<ILocation>({
+        lon,
+        lat,
+        plan: GetWeatherPlan.WEATHER,
+      });
+      setCurrentLocation(response.data);
+      dispatch(
+        getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
+      );
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (city) {
+      setLocation(city.name);
+      setLocationOptions([]);
+    }
+  }, [city]);
 
   const handleOnChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -60,28 +81,6 @@ const Location: FC = () => {
     setCity(option);
     getForecast(option);
   };
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const { latitude: lat, longitude: lon } = position.coords;
-      const response = await getWeather<ILocation>({
-        lon,
-        lat,
-        plan: GetWeatherPlan.WEATHER,
-      });
-      setCurrentLocation(response.data);
-      dispatch(
-        getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
-      );
-    });
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (city) {
-      setLocation(city.name);
-      setLocationOptions([]);
-    }
-  }, [city]);
 
   return (
     <Box

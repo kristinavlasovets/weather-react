@@ -28,7 +28,7 @@ const App: FC = () => {
           width: "80%",
           height: "80%",
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1580094333632-438bdc04f79f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80)",
+            "url(https://images.unsplash.com/photo-1615254295718-dd6994353b5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2129&q=80)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           display: "flex",

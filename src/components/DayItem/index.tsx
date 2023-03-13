@@ -1,15 +1,9 @@
 import { FC } from "react";
 
 import { Box, Chip, Typography } from "@mui/material";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { DayItemProps } from "./interface";
-import useTypedSelector from "../../hooks/useTypedSelector";
 
-const DayItem: FC<DayItemProps> = ({ isFull = false, temp }) => {
-  const currentForecastData = useTypedSelector((state) => state.forecast);
-
-  // const week = currentForecastData.forecast.list.slice(1, 7);
-
+const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon }) => {
   return (
     <Box
       sx={{
@@ -25,13 +19,20 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp }) => {
     >
       {isFull ? (
         <>
-          <WbSunnyIcon
-            sx={{ color: "orange", height: "55px", width: "55px" }}
-            fontSize="large"
+          <Box
+            component="img"
+            sx={{
+              height: 100,
+              width: 100,
+              maxHeight: { xs: 75, md: 100 },
+              maxWidth: { xs: 75, md: 100 },
+            }}
+            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt="icon"
           />
           <Box
             sx={{
-              ml: "15px",
+              m: "0 auto",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -42,17 +43,31 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp }) => {
               label="Today"
             />
             <Typography sx={{ fontSize: "32px" }}>
-              {Math.round(currentForecastData?.forecast.list[0].main.temp)}°
+              {Math.round(temp)}°
             </Typography>
           </Box>
         </>
       ) : (
         <>
           <Chip
-            sx={{ backgroundColor: "#262D41", color: "white" }}
+            sx={{
+              padding: "5px 0px 5px 0px",
+              backgroundColor: "#262D41",
+              color: "white",
+            }}
             label="Tue"
           />
-          <WbSunnyIcon />
+          <Box
+            component="img"
+            sx={{
+              height: 75,
+              width: 75,
+              maxHeight: { xs: 55, md: 75 },
+              maxWidth: { xs: 55, md: 75 },
+            }}
+            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt="icon"
+          />
           <Typography>{Math.round(temp)}°</Typography>
         </>
       )}
