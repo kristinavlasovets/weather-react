@@ -11,9 +11,11 @@ const App: FC = () => {
   return (
     <Box
       sx={{
-        pt: "10vh",
         width: "100vw",
         height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         backgroundImage:
           "url(https://images.unsplash.com/photo-1530518854704-23de978d2915?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1986&q=80)",
         backgroundPosition: "center",
@@ -23,7 +25,6 @@ const App: FC = () => {
     >
       <Box
         sx={{
-          boxShadow: 10,
           margin: "0 auto",
           width: "80%",
           height: "80%",
@@ -34,6 +35,7 @@ const App: FC = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          boxShadow: 10,
         }}
       >
         <Box

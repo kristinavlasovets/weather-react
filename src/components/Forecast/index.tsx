@@ -38,6 +38,7 @@ const Forecast: FC = () => {
               key={item.main.feels_like}
               temp={item.main.temp}
               icon={item.weather[0].icon}
+              weekday={new Date(item.dt_txt).getDay()}
             />
           ))}
         </>

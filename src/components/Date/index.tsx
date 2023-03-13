@@ -5,6 +5,8 @@ const Date: FC = () => {
   return (
     <Box
       sx={{
+        margin: "0 auto",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
       }}
@@ -23,7 +25,7 @@ const Date: FC = () => {
         </Box>
         PM
       </Typography>
-      <Typography sx={{ ml: 1, color: "white", fontSize: "16px" }}>
+      <Typography sx={{ color: "white", fontSize: "16px" }}>
         Monday, 2 February 2015
       </Typography>
     </Box>

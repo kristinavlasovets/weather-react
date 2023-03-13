@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Box, Chip, Typography } from "@mui/material";
 import { DayItemProps } from "./interface";
 
-const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon }) => {
+const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
   return (
     <Box
       sx={{
@@ -55,7 +55,7 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon }) => {
               backgroundColor: "#262D41",
               color: "white",
             }}
-            label="Tue"
+            label={weekday}
           />
           <Box
             component="img"

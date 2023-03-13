@@ -6,12 +6,11 @@ const Calendar: FC = () => {
   return (
     <Box
       sx={{
-        p: "20px",
         margin: "0 auto",
         width: "100%",
       }}
     >
-      <List sx={{ ml: 1, color: "white", fontSize: "32px" }}>
+      <List sx={{ pl: "20px", color: "white", fontSize: "32px" }}>
         <ListItem disablePadding>
           <Chip sx={{ color: "white", mr: "10px" }} label="8:00" size="small" />
           <ListItemText primary="Check Dribble popular pages" />

@@ -89,6 +89,8 @@ const Location: FC = () => {
   return (
     <Box
       sx={{
+        margin: "0 auto",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         position: "relative",

@@ -7,6 +7,7 @@ export interface IForecast {
   };
   list: [
     {
+      dt_txt: string;
       main: {
         feels_like: number;
         humidity: number;
