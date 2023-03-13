@@ -80,6 +80,10 @@ const Location: FC = () => {
   const onOptionSelect = async (option: IOption) => {
     setCity(option);
     getForecast(option);
+    const { lon, lat } = option;
+    dispatch(
+      getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
+    );
   };
 
   return (
@@ -115,9 +119,15 @@ const Location: FC = () => {
           </ListItem>
         ))}
       </Box>
-      <Typography sx={{ color: "white", fontSize: "14px" }}>
-        {currentLocation?.sys.country}
-      </Typography>
+      {city ? (
+        <Typography sx={{ color: "white", fontSize: "14px" }}>
+          {city && city.country}
+        </Typography>
+      ) : (
+        <Typography sx={{ color: "white", fontSize: "14px" }}>
+          {currentLocation?.sys.country}
+        </Typography>
+      )}
     </Box>
   );
 };
