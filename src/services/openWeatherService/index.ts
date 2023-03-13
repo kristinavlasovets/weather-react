@@ -7,14 +7,14 @@ export enum GetWeatherPlan {
   FORECAST = "forecast",
 }
 
-export interface GetWeatherParams {
+export interface GetOpenWeatherParams {
   plan: GetWeatherPlan;
   lat: number;
   lon: number;
 }
 
 export function getWeather<T>(
-  options: GetWeatherParams,
+  options: GetOpenWeatherParams,
 ): Promise<AxiosResponse<T>> {
   const { lat, lon, plan } = options;
   return openWeatherApi(

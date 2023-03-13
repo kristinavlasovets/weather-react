@@ -8,7 +8,7 @@ const stormGlassApi = axios.create({
 
 stormGlassApi.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   // eslint-disable-next-line no-param-reassign
-  config!.headers!.Authorization = process.env.STORMGLASS_API_KEY;
+  config!.headers!.Authorization = process.env.REACT_APP_STORMGLASS_API_KEY;
   return config;
 });
 

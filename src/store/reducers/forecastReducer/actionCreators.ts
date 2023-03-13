@@ -1,5 +1,5 @@
 import { IForecast } from "../../../models/IForecast";
-import { GetWeatherParams } from "../../../services/openWeatherService";
+import { GetOpenWeatherParams } from "../../../services/openWeatherService";
 import {
   GetForecastRequest,
   GetForecastSuccess,
@@ -8,7 +8,7 @@ import {
 } from "./interface";
 
 export const getForecastRequestAction = (
-  payload: GetWeatherParams,
+  payload: GetOpenWeatherParams,
 ): GetForecastRequest => {
   return {
     type: ForecastActionTypes.GET_FORECAST_REQUEST,

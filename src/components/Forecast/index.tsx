@@ -14,14 +14,24 @@ const Forecast: FC = () => {
     setForecast(currentForecastData.forecast);
   }, [currentForecastData, forecast]);
 
+  if (forecast && forecast.list) {
+    const filteredForecastDay = forecast!.list
+      .map((item) => item.dt_txt.slice(0, 10))
+      .filter((elem, i, arr) => arr.indexOf(elem) === i);
+    // console.log(filteredForecastDay);
+    // console.log(forecast);
+  }
+
   return (
     <Box
       sx={{
         margin: "0 auto",
         width: "100%",
+        maxWidth: "100%",
+        overflow: "scroll",
         height: "30%",
         display: "flex",
-        justifyContent: "space-evenly",
+        justifyContent: "flex-start",
         alignItems: "center",
         backgroundColor: "rgba(135, 135, 135, 0.85)",
       }}
@@ -33,12 +43,15 @@ const Forecast: FC = () => {
             temp={forecast!.list[0].main.temp}
             icon={forecast!.list[0].weather[0].icon}
           />
-          {forecast!.list.slice(1, 7).map((item) => (
+          {forecast!.list.map((item) => (
             <DayItem
-              key={item.main.feels_like}
+              key={item.main.feels_like + 1}
               temp={item.main.temp}
               icon={item.weather[0].icon}
-              weekday={new Date(item.dt_txt).getDay()}
+              weekday={new Date(item.dt_txt.slice(0, 10)).toLocaleString(
+                "en-us",
+                { weekday: "long" },
+              )}
             />
           ))}
         </>

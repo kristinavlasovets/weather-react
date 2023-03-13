@@ -1,5 +1,5 @@
 import { IForecast } from "../../../models/IForecast";
-import { GetWeatherParams } from "../../../services/openWeatherService";
+import { GetOpenWeatherParams } from "../../../services/openWeatherService";
 
 export interface ForecastState {
   forecast: IForecast;
@@ -15,7 +15,7 @@ export enum ForecastActionTypes {
 
 export interface GetForecastRequest {
   type: ForecastActionTypes.GET_FORECAST_REQUEST;
-  payload: GetWeatherParams;
+  payload: GetOpenWeatherParams;
 }
 export interface GetForecastSuccess {
   type: ForecastActionTypes.GET_FORECAST_SUCCESS;

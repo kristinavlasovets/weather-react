@@ -20,6 +20,7 @@ import {
 } from "../../services/openWeatherService";
 import { getForecastRequestAction } from "../../store/reducers/forecastReducer/actionCreators";
 import useTypedSelector from "../../hooks/useTypedSelector";
+import { getHourlyWeather } from "../../services/stormGlassService";
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
@@ -81,6 +82,8 @@ const Location: FC = () => {
     setCity(option);
     getForecast(option);
     const { lon, lat } = option;
+    const response = await getHourlyWeather({ lat, lng: lon });
+    console.log(response.data);
     dispatch(
       getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
     );

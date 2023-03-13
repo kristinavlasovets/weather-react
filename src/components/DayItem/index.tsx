@@ -32,7 +32,7 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
           />
           <Box
             sx={{
-              m: "0 auto",
+              mr: "20px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
