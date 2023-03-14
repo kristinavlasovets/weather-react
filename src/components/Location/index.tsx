@@ -21,10 +21,14 @@ import {
 import { getForecastRequestAction } from "../../store/reducers/forecastReducer/actionCreators";
 import useTypedSelector from "../../hooks/useTypedSelector";
 import { getHourlyWeather } from "../../services/stormGlassService";
+import { getHourlyForecastRequestAction } from "../../store/reducers/hourlyForecastReducer/actionCreators";
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
   const currentForecastData = useTypedSelector((state) => state.forecast);
+  const currentHourlyForecastData = useTypedSelector(
+    (state) => state.hourlyForecast,
+  );
   const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
     null,
   );
@@ -82,13 +86,11 @@ const Location: FC = () => {
     setCity(option);
     getForecast(option);
     const { lon, lat } = option;
-    const response = await getHourlyWeather({ lat, lng: lon });
-    console.log(response.data);
+    // dispatch(getHourlyForecastRequestAction({ lat, lng: lon }));
     dispatch(
       getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
     );
   };
-
   return (
     <Box
       sx={{

@@ -8,7 +8,7 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
     <Box
       sx={{
         height: isFull ? "50%" : "60%",
-        width: isFull ? "150px" : "70px",
+        width: isFull ? "150px" : "80px",
         pl: isFull ? "20px" : "5px",
         display: "flex",
         flexDirection: isFull ? "row" : "column",

@@ -48,10 +48,7 @@ const Forecast: FC = () => {
               key={item.main.feels_like + 1}
               temp={item.main.temp}
               icon={item.weather[0].icon}
-              weekday={new Date(item.dt_txt.slice(0, 10)).toLocaleString(
-                "en-us",
-                { weekday: "long" },
-              )}
+              weekday={item.dt_txt.slice(8, 16)}
             />
           ))}
         </>
