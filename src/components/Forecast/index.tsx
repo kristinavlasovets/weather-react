@@ -6,13 +6,10 @@ import useTypedSelector from "../../hooks/useTypedSelector";
 
 const Forecast: FC = () => {
   const currentForecastData = useTypedSelector((state) => state.forecast);
-  const currentHourlyForecastData = useTypedSelector(
-    (state) => state.hourlyForecast,
+  const currentSecondForecastData = useTypedSelector(
+    (state) => state.secondForecast,
   );
   const userData = useTypedSelector((state) => state.user);
-
-  console.log(userData.api);
-  console.log(currentHourlyForecastData);
 
   return (
     <Box
@@ -50,21 +47,25 @@ const Forecast: FC = () => {
           )}
         </>
       ) : (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
-          <DayItem
-            isFull
-            temp={
-              currentHourlyForecastData.hourlyForecast!.hours[0].airTemperature
-                .noaa
-            }
-          />
-          {currentHourlyForecastData.hourlyForecast!.hours.map((item) => (
-            <DayItem
-              key={item.time}
-              temp={item.airTemperature.noaa}
-              weekday={item.time.slice(8, 16)}
-            />
-          ))}
+          {currentSecondForecastData.secondForecast && (
+            <>
+              <DayItem
+                isFull
+                temp={currentSecondForecastData.secondForecast.current.temp_c}
+              />
+              {currentSecondForecastData.secondForecast.forecast.forecastday.map(
+                (item) => (
+                  <DayItem
+                    key={item.day.avgtemp_c}
+                    temp={item.day.avgtemp_c}
+                    weekday={item.date.slice(8, 10)}
+                  />
+                ),
+              )}
+            </>
+          )}
         </>
       )}
     </Box>

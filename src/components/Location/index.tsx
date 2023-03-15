@@ -19,16 +19,11 @@ import {
   GetWeatherPlan,
 } from "../../services/openWeatherService";
 import { getForecastRequestAction } from "../../store/reducers/forecastReducer/actionCreators";
-import useTypedSelector from "../../hooks/useTypedSelector";
-import { getHourlyWeather } from "../../services/stormGlassService";
 import { getHourlyForecastRequestAction } from "../../store/reducers/hourlyForecastReducer/actionCreators";
+import { getSecondForecastRequestAction } from "../../store/reducers/secondForecastReducer/actionCreators";
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
-  const currentForecastData = useTypedSelector((state) => state.forecast);
-  const currentHourlyForecastData = useTypedSelector(
-    (state) => state.hourlyForecast,
-  );
   const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
     null,
   );
@@ -45,6 +40,7 @@ const Location: FC = () => {
         plan: GetWeatherPlan.WEATHER,
       });
       setCurrentLocation(response.data);
+      dispatch(getSecondForecastRequestAction({ lat, lon }));
       dispatch(
         getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
       );
@@ -75,9 +71,7 @@ const Location: FC = () => {
       lat,
       plan: GetWeatherPlan.FORECAST,
     });
-
     // const { list, city: cityData } = response.data;
-
     // setForecast({ list, city: cityData });
   };
 
@@ -85,7 +79,7 @@ const Location: FC = () => {
     setCity(option);
     getForecast(option);
     const { lon, lat } = option;
-    dispatch(getHourlyForecastRequestAction({ lat, lng: lon }));
+    dispatch(getSecondForecastRequestAction({ lat, lon }));
     dispatch(
       getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
     );

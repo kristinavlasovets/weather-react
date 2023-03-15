@@ -29,7 +29,7 @@ const Date: FC = () => {
         color="inherit"
       >
         <Button onClick={() => onStormGlassApiSelect("stormGlass")}>
-          stormGlass
+          weather
         </Button>
         <Button onClick={() => onOpenWeatherApiSelect("openWeather")}>
           openWeather
