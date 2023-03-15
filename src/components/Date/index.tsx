@@ -1,7 +1,19 @@
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { FC } from "react";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import {
+  setOpenWeatherAction,
+  setStormGlassAction,
+} from "../../store/reducers/userReducer/actionCreators";
 
 const Date: FC = () => {
+  const dispatch = useAppDispatch();
+  const onStormGlassApiSelect = async (value: string) => {
+    dispatch(setStormGlassAction(value));
+  };
+  const onOpenWeatherApiSelect = async (value: string) => {
+    dispatch(setOpenWeatherAction(value));
+  };
   return (
     <Box
       sx={{
@@ -16,8 +28,12 @@ const Date: FC = () => {
         variant="text"
         color="inherit"
       >
-        <Button>stormglass</Button>
-        <Button>openweather</Button>
+        <Button onClick={() => onStormGlassApiSelect("stormGlass")}>
+          stormGlass
+        </Button>
+        <Button onClick={() => onOpenWeatherApiSelect("openWeather")}>
+          openWeather
+        </Button>
       </ButtonGroup>
       <Typography sx={{ color: "white" }}>
         <Box component="span" sx={{ fontSize: "54px", pr: "5px" }}>

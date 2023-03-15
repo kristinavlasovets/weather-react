@@ -1,26 +1,18 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { Box } from "@mui/material";
 import DayItem from "../DayItem";
 import useTypedSelector from "../../hooks/useTypedSelector";
-import { IForecast } from "../../models/IForecast";
 
 const Forecast: FC = () => {
   const currentForecastData = useTypedSelector((state) => state.forecast);
+  const currentHourlyForecastData = useTypedSelector(
+    (state) => state.hourlyForecast,
+  );
+  const userData = useTypedSelector((state) => state.user);
 
-  const [forecast, setForecast] = useState<IForecast>({} as IForecast);
-
-  useEffect(() => {
-    setForecast(currentForecastData.forecast);
-  }, [currentForecastData, forecast]);
-
-  if (forecast && forecast.list) {
-    const filteredForecastDay = forecast!.list
-      .map((item) => item.dt_txt.slice(0, 10))
-      .filter((elem, i, arr) => arr.indexOf(elem) === i);
-    // console.log(filteredForecastDay);
-    // console.log(forecast);
-  }
+  console.log(userData.api);
+  console.log(currentHourlyForecastData);
 
   return (
     <Box
@@ -36,19 +28,41 @@ const Forecast: FC = () => {
         backgroundColor: "rgba(135, 135, 135, 0.85)",
       }}
     >
-      {forecast.list && (
+      {userData.api === "openWeather" ? (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>
+          {currentForecastData.forecast.list && (
+            <>
+              <DayItem
+                isFull
+                temp={currentForecastData.forecast!.list[0].main.temp}
+                icon={currentForecastData.forecast!.list[0].weather[0].icon}
+              />
+              {currentForecastData.forecast!.list.map((item) => (
+                <DayItem
+                  key={item.main.feels_like + 1}
+                  temp={item.main.temp}
+                  icon={item.weather[0].icon}
+                  weekday={item.dt_txt.slice(8, 16)}
+                />
+              ))}
+            </>
+          )}
+        </>
+      ) : (
         <>
           <DayItem
             isFull
-            temp={forecast!.list[0].main.temp}
-            icon={forecast!.list[0].weather[0].icon}
+            temp={
+              currentHourlyForecastData.hourlyForecast!.hours[0].airTemperature
+                .noaa
+            }
           />
-          {forecast!.list.map((item) => (
+          {currentHourlyForecastData.hourlyForecast!.hours.map((item) => (
             <DayItem
-              key={item.main.feels_like + 1}
-              temp={item.main.temp}
-              icon={item.weather[0].icon}
-              weekday={item.dt_txt.slice(8, 16)}
+              key={item.time}
+              temp={item.airTemperature.noaa}
+              weekday={item.time.slice(8, 16)}
             />
           ))}
         </>

@@ -1,6 +1,6 @@
 export interface DayItemProps {
   isFull?: boolean;
   temp: number;
-  icon: string;
+  icon?: string;
   weekday?: string;
 }

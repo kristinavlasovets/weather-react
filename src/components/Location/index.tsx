@@ -35,7 +35,6 @@ const Location: FC = () => {
   const [location, setLocation] = useState<string>("");
   const [city, setCity] = useState<IOption | null>(null);
   const [locationOptions, setLocationOptions] = useState<IOption[]>([]);
-  const [forecast, setForecast] = useState<IForecast | null>(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -77,16 +76,16 @@ const Location: FC = () => {
       plan: GetWeatherPlan.FORECAST,
     });
 
-    const { list, city: cityData } = response.data;
+    // const { list, city: cityData } = response.data;
 
-    setForecast({ list, city: cityData });
+    // setForecast({ list, city: cityData });
   };
 
   const onOptionSelect = async (option: IOption) => {
     setCity(option);
     getForecast(option);
     const { lon, lat } = option;
-    // dispatch(getHourlyForecastRequestAction({ lat, lng: lon }));
+    dispatch(getHourlyForecastRequestAction({ lat, lng: lon }));
     dispatch(
       getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
     );
