@@ -1,4 +1,9 @@
-import { SetOpenWeather, SetStormGlass, UserActionTypes } from "./interface";
+import {
+  SetIsLogin,
+  SetOpenWeather,
+  SetWeather,
+  UserActionTypes,
+} from "./interface";
 
 export const setOpenWeatherAction = (payload: string): SetOpenWeather => {
   return {
@@ -6,9 +11,15 @@ export const setOpenWeatherAction = (payload: string): SetOpenWeather => {
     payload,
   };
 };
-export const setStormGlassAction = (payload: string): SetStormGlass => {
+export const setWeatherAction = (payload: string): SetWeather => {
   return {
-    type: UserActionTypes.SET_STORM_GLASS,
+    type: UserActionTypes.SET_WEATHER,
+    payload,
+  };
+};
+export const setIsLoginAction = (payload: boolean): SetIsLogin => {
+  return {
+    type: UserActionTypes.SET_IS_LOGIN,
     payload,
   };
 };

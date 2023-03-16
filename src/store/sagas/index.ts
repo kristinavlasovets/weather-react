@@ -1,21 +1,14 @@
 import { AxiosResponse } from "axios";
 import { call, put, takeEvery, fork, all } from "redux-saga/effects";
 import { IForecast } from "../../models/IForecast";
-import { IHourlyForecast } from "../../models/IHourlyForecast";
 import { ISecondForecast } from "../../models/ISecondForecast";
 import { getWeather } from "../../services/openWeatherService";
-import { getHourlyWeather } from "../../services/stormGlassService";
 import { getSecondWeather } from "../../services/weatherService";
 import { getForecastSuccessAction } from "../reducers/forecastReducer/actionCreators";
 import {
   ForecastActionTypes,
   GetForecastRequest,
 } from "../reducers/forecastReducer/interface";
-import { getHourlyForecastSuccessAction } from "../reducers/hourlyForecastReducer/actionCreators";
-import {
-  GetHourlyForecastRequest,
-  HourlyForecastActionTypes,
-} from "../reducers/hourlyForecastReducer/interface";
 import { getSecondForecastSuccessAction } from "../reducers/secondForecastReducer/actionCreators";
 import {
   GetSecondForecastRequest,

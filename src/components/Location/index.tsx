@@ -7,23 +7,28 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
+  Button,
+  ButtonGroup,
 } from "@mui/material";
 
 import useAppDispatch from "../../hooks/useAppDispatch";
 import { IOption } from "../../models/IOption";
 import { ILocation } from "../../models/ILocation";
-import { IForecast } from "../../models/IForecast";
 import {
   getGeolocation,
   getWeather,
   GetWeatherPlan,
 } from "../../services/openWeatherService";
 import { getForecastRequestAction } from "../../store/reducers/forecastReducer/actionCreators";
-import { getHourlyForecastRequestAction } from "../../store/reducers/hourlyForecastReducer/actionCreators";
 import { getSecondForecastRequestAction } from "../../store/reducers/secondForecastReducer/actionCreators";
+import {
+  setOpenWeatherAction,
+  setWeatherAction,
+} from "../../store/reducers/userReducer/actionCreators";
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
+
   const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
     null,
   );
@@ -54,6 +59,13 @@ const Location: FC = () => {
     }
   }, [city]);
 
+  const onWeatherApiSelect = async (value: string) => {
+    dispatch(setWeatherAction(value));
+  };
+  const onOpenWeatherApiSelect = async (value: string) => {
+    dispatch(setOpenWeatherAction(value));
+  };
+
   const handleOnChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setLocation(value);
@@ -64,20 +76,8 @@ const Location: FC = () => {
     }
   };
 
-  const getForecast = async (option: IOption) => {
-    const { lat, lon } = option;
-    const response = await getWeather<IForecast>({
-      lon,
-      lat,
-      plan: GetWeatherPlan.FORECAST,
-    });
-    // const { list, city: cityData } = response.data;
-    // setForecast({ list, city: cityData });
-  };
-
   const onOptionSelect = async (option: IOption) => {
     setCity(option);
-    getForecast(option);
     const { lon, lat } = option;
     dispatch(getSecondForecastRequestAction({ lat, lon }));
     dispatch(
@@ -94,21 +94,33 @@ const Location: FC = () => {
         position: "relative",
       }}
     >
+      <ButtonGroup
+        sx={{ mb: "10px", color: "white", height: "20px" }}
+        variant="text"
+        color="inherit"
+      >
+        <Button onClick={() => onWeatherApiSelect("stormGlass")}>
+          weather
+        </Button>
+        <Button onClick={() => onOpenWeatherApiSelect("openWeather")}>
+          openWeather
+        </Button>
+      </ButtonGroup>
       <InputBase
-        sx={{ color: "white", fontSize: "22px" }}
+        sx={{ ml: "10px", color: "white", fontSize: "22px" }}
         placeholder={currentLocation?.name}
         value={location}
         onChange={handleOnChange}
       />
       <Box
         sx={{
-          width: "100%",
+          width: "80%",
           maxHeight: 400,
-          maxWidth: 360,
+          maxWidth: 300,
           bgcolor: "background.paper",
           position: "absolute",
-          top: "40px",
-          left: "-20px",
+          top: "70px",
+          left: "10px",
         }}
       >
         {locationOptions.map((option) => (
@@ -120,11 +132,11 @@ const Location: FC = () => {
         ))}
       </Box>
       {city ? (
-        <Typography sx={{ color: "white", fontSize: "14px" }}>
+        <Typography sx={{ ml: "10px", color: "white", fontSize: "14px" }}>
           {city && city.country}
         </Typography>
       ) : (
-        <Typography sx={{ color: "white", fontSize: "14px" }}>
+        <Typography sx={{ ml: "10px", color: "white", fontSize: "14px" }}>
           {currentLocation?.sys.country}
         </Typography>
       )}

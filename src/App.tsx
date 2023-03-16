@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Box } from "@mui/material";
 
 import Location from "./components/Location";
-import Date from "./components/Date";
+import DateAndTime from "./components/DateAndTime";
 import Calendar from "./components/Calendar";
 import Forecast from "./components/Forecast";
 
@@ -40,7 +40,7 @@ const App: FC = () => {
       >
         <Box
           sx={{
-            p: "20px",
+            p: { xs: "40px 0 0 20px", md: "40px 0 0 40px" },
             width: "100%",
             height: "20%",
             display: "flex",
@@ -48,7 +48,7 @@ const App: FC = () => {
             alignItems: "center",
           }}
         >
-          <Date />
+          <DateAndTime />
           <Location />
         </Box>
         <Calendar />

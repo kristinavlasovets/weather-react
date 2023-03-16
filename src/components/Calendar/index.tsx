@@ -1,12 +1,27 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import ApiCalendar from "react-google-calendar-api";
 
-import { Box, Button, Chip, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Chip,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import { setIsLoginAction } from "../../store/reducers/userReducer/actionCreators";
+import useTypedSelector from "../../hooks/useTypedSelector";
 
 const Calendar: FC = () => {
+  const dispatch = useAppDispatch();
+  const isLogin = useTypedSelector((state) => state.user.isLogin);
+
+  const [events, setEvents] = useState<any[]>([]);
   const config = {
-    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    apiKey: process.env.REACT_APP_GOOGLE_CALENDAR_API_KEY,
+    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID!,
+    apiKey: process.env.REACT_APP_GOOGLE_CALENDAR_API_KEY!,
     scope: "https://www.googleapis.com/auth/calendar",
     discoveryDocs: [
       "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
@@ -17,50 +32,52 @@ const Calendar: FC = () => {
 
   const handleOnLogin = () => {
     apiCalendar.handleAuthClick();
-    console.log("click");
-    apiCalendar
-      .listEvents({
-        // timeMin: new Date()..toISOString(),
-        // timeMax: new Date().addDays(10).toISOString(),
-        showDeleted: true,
-        maxResults: 10,
-        orderBy: "updated",
-      })
-      .then(({ result }: any) => {
-        console.log(result.items);
-      });
+    dispatch(setIsLoginAction(true));
   };
+  const handleOnLogout = () => {
+    apiCalendar.handleSignoutClick();
+    dispatch(setIsLoginAction(false));
+  };
+  const handleCheckEvents = () => {
+    apiCalendar
+      .listUpcomingEvents(10)
+      .then(({ result }: any) => setEvents(result.items));
+  };
+
   return (
     <Box
       sx={{
-        margin: "0 auto",
+        ml: { xs: "20px", md: "40px" },
         width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
       }}
     >
-      <Button sx={{ p: "20px", color: "white" }} onClick={handleOnLogin}>
-        Check my Google Calendar
-      </Button>
-      <List sx={{ pl: "20px", color: "white", fontSize: "32px" }}>
-        <ListItem disablePadding>
-          <Chip sx={{ color: "white", mr: "10px" }} label="8:00" size="small" />
-          <ListItemText primary="Check Dribble popular pages" />
-        </ListItem>
-        <ListItem disablePadding>
-          <Chip
-            sx={{ color: "white", mr: "10px" }}
-            label="12:00"
-            size="small"
-          />
-          <ListItemText primary="Make Dribble shot" />
-        </ListItem>
-        <ListItem disablePadding>
-          <Chip
-            sx={{ color: "white", mr: "10px" }}
-            label="21:00"
-            size="small"
-          />
-          <ListItemText primary="Check if you are on the popular page" />
-        </ListItem>
+      <ButtonGroup sx={{ height: "20px" }} variant="text" color="inherit">
+        {isLogin ? (
+          <>
+            <Button sx={{ color: "white" }} onClick={handleCheckEvents}>
+              Check my Google Calendar
+            </Button>
+            <Button onClick={handleOnLogout}>Log out</Button>
+          </>
+        ) : (
+          <Button onClick={handleOnLogin}>Log in</Button>
+        )}
+      </ButtonGroup>
+      <List sx={{ color: "white", fontSize: "32px" }}>
+        {events &&
+          events!.map((item) => (
+            <ListItem disablePadding>
+              <Chip
+                sx={{ color: "white", mr: "10px" }}
+                label={item.start.dateTime.slice(11, 16)}
+                size="small"
+              />
+              <ListItemText primary={item.summary} />
+            </ListItem>
+          ))}
       </List>
     </Box>
   );
