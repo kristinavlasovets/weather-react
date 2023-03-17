@@ -13,12 +13,13 @@ import {
 import useAppDispatch from "../../hooks/useAppDispatch";
 import { setIsLoginAction } from "../../store/reducers/userReducer/actionCreators";
 import useTypedSelector from "../../hooks/useTypedSelector";
+import { ICalendar } from "../../models/ICalendar";
 
 const Calendar: FC = () => {
   const dispatch = useAppDispatch();
   const isLogin = useTypedSelector((state) => state.user.isLogin);
 
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<ICalendar[]>([]);
   const config = {
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID!,
     apiKey: process.env.REACT_APP_GOOGLE_CALENDAR_API_KEY!,
@@ -63,13 +64,23 @@ const Calendar: FC = () => {
             <Button onClick={handleOnLogout}>Log out</Button>
           </>
         ) : (
-          <Button onClick={handleOnLogin}>Log in</Button>
+          <Button sx={{ color: "white" }} onClick={handleOnLogin}>
+            Log in to Google Calendar
+          </Button>
         )}
       </ButtonGroup>
-      <List sx={{ color: "white", fontSize: "32px" }}>
+      <List
+        sx={{
+          color: "white",
+          fontSize: "32px",
+          height: "200px",
+          width: "50%",
+          overflow: "scroll",
+        }}
+      >
         {events &&
           events!.map((item) => (
-            <ListItem disablePadding>
+            <ListItem disablePadding key={item.created}>
               <Chip
                 sx={{ color: "white", mr: "10px" }}
                 label={item.start.dateTime.slice(11, 16)}

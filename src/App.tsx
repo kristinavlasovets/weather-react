@@ -6,6 +6,7 @@ import Location from "./components/Location";
 import DateAndTime from "./components/DateAndTime";
 import Calendar from "./components/Calendar";
 import Forecast from "./components/Forecast";
+import useTypedSelector from "./hooks/useTypedSelector";
 
 const App: FC = () => {
   return (
@@ -26,7 +27,7 @@ const App: FC = () => {
       <Box
         sx={{
           margin: "0 auto",
-          width: "80%",
+          width: { xs: "80%", md: "60%" },
           height: "80%",
           backgroundImage:
             "url(https://images.unsplash.com/photo-1615254295718-dd6994353b5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2129&q=80)",
