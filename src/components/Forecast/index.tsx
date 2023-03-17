@@ -37,7 +37,7 @@ const Forecast: FC = () => {
               />
               {currentForecastData.forecast!.list.map((item) => (
                 <DayItem
-                  key={item.main.feels_like + 1}
+                  key={item.dt_txt}
                   temp={item.main.temp}
                   icon={item.weather[0].icon}
                   weekday={item.dt_txt.slice(8, 16)}
@@ -54,12 +54,17 @@ const Forecast: FC = () => {
               <DayItem
                 isFull
                 temp={currentSecondForecastData.secondForecast.current.temp_c}
+                icon={
+                  currentSecondForecastData.secondForecast.current.condition
+                    .icon
+                }
               />
               {currentSecondForecastData.secondForecast.forecast.forecastday.map(
                 (item) => (
                   <DayItem
-                    key={item.day.avgtemp_c}
+                    key={item.date}
                     temp={item.day.avgtemp_c}
+                    icon={item.day.condition.icon}
                     weekday={item.date.slice(8, 10)}
                   />
                 ),

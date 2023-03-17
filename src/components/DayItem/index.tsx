@@ -2,8 +2,10 @@ import { FC } from "react";
 
 import { Box, Chip, Typography } from "@mui/material";
 import { DayItemProps } from "./interface";
+import useTypedSelector from "../../hooks/useTypedSelector";
 
 const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
+  const userData = useTypedSelector((state) => state.user);
   return (
     <Box
       sx={{
@@ -27,7 +29,11 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
               maxHeight: { xs: 75, md: 100 },
               maxWidth: { xs: 75, md: 100 },
             }}
-            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            src={
+              userData.api === "openWeather"
+                ? `http://openweathermap.org/img/wn/${icon}@2x.png`
+                : `https:${icon}`
+            }
             alt="icon"
           />
           <Box
@@ -65,7 +71,11 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
               maxHeight: { xs: 55, md: 75 },
               maxWidth: { xs: 55, md: 75 },
             }}
-            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            src={
+              userData.api === "openWeather"
+                ? `http://openweathermap.org/img/wn/${icon}@2x.png`
+                : `https:${icon}`
+            }
             alt="icon"
           />
           <Typography>{Math.round(temp)}°</Typography>
