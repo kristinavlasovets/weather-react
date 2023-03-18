@@ -17,7 +17,7 @@ const Forecast: FC = () => {
         margin: "0 auto",
         width: "100%",
         maxWidth: "100%",
-        overflow: "scroll",
+        overflow: "auto",
         height: "30%",
         display: "flex",
         justifyContent: "flex-start",
@@ -53,7 +53,10 @@ const Forecast: FC = () => {
             <>
               <DayItem
                 isFull
-                temp={currentSecondForecastData.secondForecast.current.temp_c}
+                temp={
+                  currentSecondForecastData.secondForecast.current.temp_c ||
+                  currentSecondForecastData.secondForecast.current.temp_f
+                }
                 icon={
                   currentSecondForecastData.secondForecast.current.condition
                     .icon

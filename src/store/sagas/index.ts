@@ -43,22 +43,6 @@ export function* watchWeatherForecastSaga() {
   );
 }
 
-// export function* getStormGlassForecast(action: GetHourlyForecastRequest) {
-//   const { payload } = action;
-//   const response: AxiosResponse<IHourlyForecast> = yield call(
-//     getHourlyWeather,
-//     payload,
-//   );
-//   yield put(getHourlyForecastSuccessAction(response.data));
-// }
-
-// export function* watchStormGlassForecastSaga() {
-//   yield takeEvery(
-//     HourlyForecastActionTypes.GET_HOURLY_FORECAST_REQUEST,
-//     getStormGlassForecast,
-//   );
-// }
-
 export default function* rootSaga() {
   yield all([
     fork(watchOpenWeatherForecastSaga),

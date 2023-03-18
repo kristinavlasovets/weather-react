@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import ApiCalendar from "react-google-calendar-api";
 
 import {
   Box,
@@ -14,22 +13,13 @@ import useAppDispatch from "../../hooks/useAppDispatch";
 import { setIsLoginAction } from "../../store/reducers/userReducer/actionCreators";
 import useTypedSelector from "../../hooks/useTypedSelector";
 import { ICalendar } from "../../models/ICalendar";
+import apiCalendar from "../../http/googleCalendar_api";
 
 const Calendar: FC = () => {
   const dispatch = useAppDispatch();
   const isLogin = useTypedSelector((state) => state.user.isLogin);
 
   const [events, setEvents] = useState<ICalendar[]>([]);
-  const config = {
-    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID!,
-    apiKey: process.env.REACT_APP_GOOGLE_CALENDAR_API_KEY!,
-    scope: "https://www.googleapis.com/auth/calendar",
-    discoveryDocs: [
-      "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-    ],
-  };
-
-  const apiCalendar = new ApiCalendar(config);
 
   const handleOnLogin = () => {
     apiCalendar.handleAuthClick();
@@ -75,11 +65,12 @@ const Calendar: FC = () => {
           fontSize: "32px",
           height: "200px",
           width: "50%",
-          overflow: "scroll",
+          overflow: "auto",
         }}
       >
-        {events &&
-          events!.map((item) => (
+        {isLogin &&
+          events &&
+          events.map((item) => (
             <ListItem disablePadding key={item.created}>
               <Chip
                 sx={{ color: "white", mr: "10px" }}

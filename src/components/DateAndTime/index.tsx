@@ -1,19 +1,15 @@
-import { Box, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import useAppDispatch from "../../hooks/useAppDispatch";
+
+import { Box, Typography } from "@mui/material";
 
 const DateAndTime: FC = () => {
-  const dispatch = useAppDispatch();
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const currentDateAndTime = new Date(position.timestamp);
-      setDate(currentDateAndTime.toDateString());
-      setTime(currentDateAndTime.toLocaleTimeString());
-    });
-  }, [dispatch]);
+    const interval = setInterval(() => setDate(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -24,10 +20,10 @@ const DateAndTime: FC = () => {
       }}
     >
       <Typography sx={{ color: "white", fontSize: "54px" }}>
-        {time.slice(0, 5)}
+        {date?.toTimeString().slice(0, 8)}
       </Typography>
-      <Typography sx={{ pl: "10px", color: "white", fontSize: "16px" }}>
-        {date}
+      <Typography sx={{ pl: "10px", color: "white", fontSize: "20px" }}>
+        {date?.toDateString().slice(0, 15)}
       </Typography>
     </Box>
   );

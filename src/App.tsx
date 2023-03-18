@@ -8,7 +8,19 @@ import Calendar from "./components/Calendar";
 import Forecast from "./components/Forecast";
 import useTypedSelector from "./hooks/useTypedSelector";
 
+import chooseWeatherHandler from "./helpers";
+import { weatherConditions } from "./constants";
+
 const App: FC = () => {
+  const currentSecondForecastData = useTypedSelector(
+    (state) => state.secondForecast,
+  );
+
+  const backgroundImages = chooseWeatherHandler(
+    currentSecondForecastData?.secondForecast?.current?.condition?.text,
+    weatherConditions,
+  );
+
   return (
     <Box
       sx={{
@@ -17,8 +29,7 @@ const App: FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1530518854704-23de978d2915?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1986&q=80)",
+        backgroundImage: `url(${backgroundImages.bgBack})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -29,8 +40,7 @@ const App: FC = () => {
           margin: "0 auto",
           width: { xs: "80%", md: "60%" },
           height: "80%",
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1615254295718-dd6994353b5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2129&q=80)",
+          backgroundImage: `url(${backgroundImages.bgFront})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           display: "flex",

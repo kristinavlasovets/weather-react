@@ -1,7 +1,12 @@
-import { UserAction, UserActionTypes, UserState } from "./interface";
+import {
+  UserAction,
+  UserActionTypes,
+  UserState,
+  UserStateApiTypes,
+} from "./interface";
 
 const initialState: UserState = {
-  api: "openWeather",
+  api: UserStateApiTypes.OPENWEATHER_API,
   isLogin: false,
   loading: false,
   error: null,
@@ -12,17 +17,17 @@ const userReducer = (state = initialState, action: UserAction): UserState => {
     case UserActionTypes.SET_OPEN_WEATHER:
       return {
         ...state,
-        api: "openWeather",
+        api: UserStateApiTypes.OPENWEATHER_API,
       };
     case UserActionTypes.SET_WEATHER:
       return {
         ...state,
-        api: "weather",
+        api: UserStateApiTypes.WEATHER_API,
       };
     case UserActionTypes.SET_IS_LOGIN:
       return {
         ...state,
-        isLogin: true,
+        isLogin: action.payload,
       };
     default:
       return state;

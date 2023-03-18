@@ -1,5 +1,14 @@
+export enum UserStateApiTypes {
+  OPENWEATHER_API = "openWeather",
+  WEATHER_API = "weather",
+}
+
+type UserStateApi =
+  | UserStateApiTypes.OPENWEATHER_API
+  | UserStateApiTypes.WEATHER_API;
+
 export interface UserState {
-  api: "openWeather" | "weather";
+  api: UserStateApi;
   isLogin: boolean;
   loading: boolean;
   error: null | string;
