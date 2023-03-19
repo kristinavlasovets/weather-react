@@ -99,9 +99,7 @@ const Location: FC = () => {
         variant="text"
         color="inherit"
       >
-        <Button onClick={() => onWeatherApiSelect("stormGlass")}>
-          weather
-        </Button>
+        <Button onClick={() => onWeatherApiSelect("weather")}>weather</Button>
         <Button onClick={() => onOpenWeatherApiSelect("openWeather")}>
           openWeather
         </Button>
