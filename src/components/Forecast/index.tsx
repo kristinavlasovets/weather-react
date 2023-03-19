@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Box } from "@mui/material";
 import DayItem from "../DayItem";
 import useTypedSelector from "../../hooks/useTypedSelector";
+import Skeleton from "../DayItem/skeleton";
 
 const Forecast: FC = () => {
   const currentForecastData = useTypedSelector((state) => state.forecast);
@@ -25,6 +26,12 @@ const Forecast: FC = () => {
         backgroundColor: "rgba(135, 135, 135, 0.85)",
       }}
     >
+      {currentForecastData.loading ||
+        (currentSecondForecastData.loading &&
+          [...new Array(7)].map((item, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Skeleton key={index} />
+          )))}
       {userData.api === "openWeather" ? (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
