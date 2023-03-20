@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import ReduxProvider from "../../ReduxProvider";
-import Location from "../index";
+import Calendar from "../index";
 
-test("renders first api toggle button", () => {
+test("login button", () => {
   render(
     <ReduxProvider>
-      <Location />
+      <Calendar />
     </ReduxProvider>,
   );
-  const buttonElement = screen.getByText(/weather/i);
+  const buttonElement = screen.getByText(/Log in to Google Calendar/i);
   expect(buttonElement).toBeInTheDocument();
 });

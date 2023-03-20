@@ -10,6 +10,8 @@ import moderateRainFront from "../assets/images/moderateRainFront.png";
 import moderateRainBack from "../assets/images/moderateRainBack.png";
 import clearFront from "../assets/images/clearFront.png";
 import clearBack from "../assets/images/clearBack.png";
+import snowFront from "../assets/images/snowFront.png";
+import snowBack from "../assets/images/snowBack.png";
 
 export const weatherConditions = {
   sunny: {
@@ -31,6 +33,10 @@ export const weatherConditions = {
   clear: {
     bgFront: clearFront,
     bgBack: clearBack,
+  },
+  snow: {
+    bgFront: snowFront,
+    bgBack: snowBack,
   },
   default: {
     bgFront: defaultFront,
