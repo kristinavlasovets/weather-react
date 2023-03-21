@@ -8,12 +8,16 @@ const chooseWeatherHandler = (condition: string, object: WeatherConditions) => {
       return object.partlyCloudy;
     case "Cloudy":
       return object.cloudy;
+    case "Light rain":
+      return object.lightRain;
     case "Moderate rain":
       return object.moderateRain;
     case "Clear":
       return object.clear;
     case "Moderate or heavy snow showers":
       return object.snow;
+    case "Overcast":
+      return object.overcast;
     default:
       return object.default;
   }

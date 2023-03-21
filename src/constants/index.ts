@@ -6,12 +6,16 @@ import partlyCloudyFront from "../assets/images/partlyCloudyFront.png";
 import partlyCloudyBack from "../assets/images/partlyCloudyBack.png";
 import cloudyFront from "../assets/images/cloudyFront.png";
 import cloudyBack from "../assets/images/cloudyBack.png";
+import lightRainFront from "../assets/images/lightRainFront.png";
+import lightRainBack from "../assets/images/lightRainBack.png";
 import moderateRainFront from "../assets/images/moderateRainFront.png";
 import moderateRainBack from "../assets/images/moderateRainBack.png";
 import clearFront from "../assets/images/clearFront.png";
 import clearBack from "../assets/images/clearBack.png";
 import snowFront from "../assets/images/snowFront.png";
 import snowBack from "../assets/images/snowBack.png";
+import overcastFront from "../assets/images/overcastFront.png";
+import overcastBack from "../assets/images/overcastBack.png";
 
 export const weatherConditions = {
   sunny: {
@@ -26,6 +30,10 @@ export const weatherConditions = {
     bgFront: cloudyFront,
     bgBack: cloudyBack,
   },
+  lightRain: {
+    bgFront: lightRainFront,
+    bgBack: lightRainBack,
+  },
   moderateRain: {
     bgFront: moderateRainFront,
     bgBack: moderateRainBack,
@@ -37,6 +45,10 @@ export const weatherConditions = {
   snow: {
     bgFront: snowFront,
     bgBack: snowBack,
+  },
+  overcast: {
+    bgFront: overcastFront,
+    bgBack: overcastBack,
   },
   default: {
     bgFront: defaultFront,

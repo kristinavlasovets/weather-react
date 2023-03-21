@@ -122,7 +122,12 @@ const Location: FC = () => {
         }}
       >
         {locationOptions.map((option) => (
-          <ListItem component="div" disablePadding key={option.lon}>
+          <ListItem
+            component="div"
+            disablePadding
+            key={option.lon}
+            data-testid="option-item"
+          >
             <ListItemButton onClick={() => onOptionSelect(option)}>
               <ListItemText>{option.name}</ListItemText>
             </ListItemButton>

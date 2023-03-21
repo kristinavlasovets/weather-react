@@ -31,7 +31,10 @@ const Calendar: FC = () => {
   };
   const handleCheckEvents = () => {
     apiCalendar
-      .listUpcomingEvents(10)
+      .listEvents({
+        timeMin: new Date().toISOString(),
+        timeMax: new Date(new Date().getTime() + 36000000).toISOString(),
+      })
       .then(({ result }: any) => setEvents(result.items));
   };
 

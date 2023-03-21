@@ -11,21 +11,14 @@ test("login button", () => {
   const logInButtonElement = screen.getByText(/log in to google calendar/i);
   expect(logInButtonElement).toBeInTheDocument();
 });
+
 // test("check button", () => {
 //   render(
 //     <ReduxProvider>
 //       <Calendar />
 //     </ReduxProvider>,
 //   );
-//   const checkButtonElement = screen.getByText(/check my google calendar/i);
-//   expect(checkButtonElement).toBeInTheDocument();
-// });
-// test("logout button", () => {
-//   render(
-//     <ReduxProvider>
-//       <Calendar />
-//     </ReduxProvider>,
-//   );
-//   const logOutButtonElement = screen.getByText(/log out/i);
-//   expect(logOutButtonElement).toBeInTheDocument();
+//   const logInButtonElement = screen.getByText(/log in to google calendar/i);
+//   fireEvent.click(logInButtonElement);
+//   expect(screen.getByText(/check/i)).toBeInTheDocument();
 // });
