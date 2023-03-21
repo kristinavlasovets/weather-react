@@ -18,6 +18,8 @@ const chooseWeatherHandler = (condition: string, object: WeatherConditions) => {
       return object.snow;
     case "Overcast":
       return object.overcast;
+    case "Fog":
+      return object.fog;
     default:
       return object.default;
   }

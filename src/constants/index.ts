@@ -16,6 +16,8 @@ import snowFront from "../assets/images/snowFront.png";
 import snowBack from "../assets/images/snowBack.png";
 import overcastFront from "../assets/images/overcastFront.png";
 import overcastBack from "../assets/images/overcastBack.png";
+import fogFront from "../assets/images/fogFront.png";
+import fogBack from "../assets/images/fogBack.png";
 
 export const weatherConditions = {
   sunny: {
@@ -49,6 +51,10 @@ export const weatherConditions = {
   overcast: {
     bgFront: overcastFront,
     bgBack: overcastBack,
+  },
+  fog: {
+    bgFront: fogFront,
+    bgBack: fogBack,
   },
   default: {
     bgFront: defaultFront,
