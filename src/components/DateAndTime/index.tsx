@@ -19,10 +19,13 @@ const DateAndTime: FC = () => {
         flexDirection: "column",
       }}
     >
-      <Typography sx={{ color: "white", fontSize: "54px" }}>
+      <Typography sx={{ color: "white", fontSize: "54px" }} data-testid="time">
         {date?.toTimeString().slice(0, 8)}
       </Typography>
-      <Typography sx={{ pl: "10px", color: "white", fontSize: "20px" }}>
+      <Typography
+        sx={{ pl: "10px", color: "white", fontSize: "20px" }}
+        data-testid="date"
+      >
         {date?.toDateString().slice(0, 15)}
       </Typography>
     </Box>
