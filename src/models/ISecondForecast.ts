@@ -33,6 +33,7 @@ export interface ISecondForecast {
             {
               time: string;
               temp_c: number;
+              temp_f: number;
               is_day: number;
               condition: {
                 text: string;

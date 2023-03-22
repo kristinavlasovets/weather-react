@@ -1,11 +1,15 @@
 import { FC } from "react";
 
 import { Box, Chip, Typography } from "@mui/material";
-import { DayItemProps } from "./interface";
+
 import useTypedSelector from "../../hooks/useTypedSelector";
+import { userSelector } from "../../store/selectors";
+
+import { DayItemProps } from "./interface";
+import dayItemIconSrcHandler from "./helpers";
 
 const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
-  const userData = useTypedSelector((state) => state.user);
+  const userData = useTypedSelector(userSelector);
   return (
     <Box
       sx={{
@@ -29,11 +33,7 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
               maxHeight: { xs: 75, md: 100 },
               maxWidth: { xs: 75, md: 100 },
             }}
-            src={
-              userData.api === "openWeather"
-                ? `http://openweathermap.org/img/wn/${icon}@2x.png`
-                : `https:${icon}`
-            }
+            src={dayItemIconSrcHandler(userData.api, icon)}
             alt="icon"
           />
           <Box
@@ -70,11 +70,7 @@ const DayItem: FC<DayItemProps> = ({ isFull = false, temp, icon, weekday }) => {
               maxHeight: { xs: 55, md: 75 },
               maxWidth: { xs: 55, md: 75 },
             }}
-            src={
-              userData.api === "openWeather"
-                ? `http://openweathermap.org/img/wn/${icon}@2x.png`
-                : `https:${icon}`
-            }
+            src={dayItemIconSrcHandler(userData.api, icon)}
             alt="icon"
           />
           <Typography>{Math.round(temp)}°</Typography>

@@ -12,28 +12,32 @@ import {
 } from "@mui/material";
 
 import useAppDispatch from "../../hooks/useAppDispatch";
-import { IOption } from "../../models/IOption";
-import { ILocation } from "../../models/ILocation";
-import {
-  getGeolocation,
-  getWeather,
-  GetWeatherPlan,
-} from "../../services/openWeatherService";
 import { getForecastRequestAction } from "../../store/reducers/forecastReducer/actionCreators";
 import { getSecondForecastRequestAction } from "../../store/reducers/secondForecastReducer/actionCreators";
 import {
   setOpenWeatherAction,
   setWeatherAction,
 } from "../../store/reducers/userReducer/actionCreators";
+import {
+  getGeolocation,
+  getWeather,
+  GetWeatherPlan,
+} from "../../services/openWeatherService";
+import { IOption } from "../../models/IOption";
+import { ILocation } from "../../models/ILocation";
+import { UserStateApiTypes } from "../../store/reducers/userReducer/interface";
+import useTypedSelector from "../../hooks/useTypedSelector";
+import { locationSelector, userSelector } from "../../store/selectors";
+import { getLocationSuccessAction } from "../../store/reducers/locationReducer/actionCreators";
 
 const Location: FC = () => {
   const dispatch = useAppDispatch();
-
+  const userState = useTypedSelector(userSelector);
+  const locationState = useTypedSelector(locationSelector);
   const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
     null,
   );
   const [location, setLocation] = useState<string>("");
-  const [city, setCity] = useState<IOption | null>(null);
   const [locationOptions, setLocationOptions] = useState<IOption[]>([]);
 
   useEffect(() => {
@@ -44,6 +48,7 @@ const Location: FC = () => {
         lat,
         plan: GetWeatherPlan.WEATHER,
       });
+
       setCurrentLocation(response.data);
       dispatch(getSecondForecastRequestAction({ lat, lon }));
       dispatch(
@@ -53,17 +58,18 @@ const Location: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (city) {
-      setLocation(city.name);
-      setLocationOptions([]);
+    if (locationState.name) {
+      setLocation(locationState.name);
+      setLocationOptions([] as IOption[]);
     }
-  }, [city]);
+  }, [locationState.name]);
 
-  const onWeatherApiSelect = async (value: string) => {
-    dispatch(setWeatherAction(value));
+  const onWeatherApiSelect = () => {
+    dispatch(setWeatherAction(UserStateApiTypes.WEATHER_API));
   };
-  const onOpenWeatherApiSelect = async (value: string) => {
-    dispatch(setOpenWeatherAction(value));
+
+  const onOpenWeatherApiSelect = () => {
+    dispatch(setOpenWeatherAction(UserStateApiTypes.OPENWEATHER_API));
   };
 
   const handleOnChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,9 +82,9 @@ const Location: FC = () => {
     }
   };
 
-  const onOptionSelect = async (option: IOption) => {
-    setCity(option);
-    const { lon, lat } = option;
+  const onOptionSelect = (option: IOption) => () => {
+    dispatch(getLocationSuccessAction(option));
+    const { lat, lon } = option;
     dispatch(getSecondForecastRequestAction({ lat, lon }));
     dispatch(
       getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
@@ -99,9 +105,25 @@ const Location: FC = () => {
         variant="text"
         color="inherit"
       >
-        <Button onClick={() => onWeatherApiSelect("weather")}>weather</Button>
-        <Button onClick={() => onOpenWeatherApiSelect("openWeather")}>
-          openWeather
+        <Button
+          onClick={onWeatherApiSelect}
+          color={
+            userState.api === UserStateApiTypes.WEATHER_API
+              ? "primary"
+              : "inherit"
+          }
+        >
+          {UserStateApiTypes.WEATHER_API}
+        </Button>
+        <Button
+          onClick={onOpenWeatherApiSelect}
+          color={
+            userState.api === UserStateApiTypes.OPENWEATHER_API
+              ? "primary"
+              : "inherit"
+          }
+        >
+          {UserStateApiTypes.OPENWEATHER_API}
         </Button>
       </ButtonGroup>
       <InputBase
@@ -128,15 +150,15 @@ const Location: FC = () => {
             key={option.lon}
             data-testid="option-item"
           >
-            <ListItemButton onClick={() => onOptionSelect(option)}>
+            <ListItemButton onClick={onOptionSelect(option)}>
               <ListItemText>{option.name}</ListItemText>
             </ListItemButton>
           </ListItem>
         ))}
       </Box>
-      {city ? (
+      {locationState.name ? (
         <Typography sx={{ ml: "10px", color: "white", fontSize: "14px" }}>
-          {city && city.country}
+          {locationState.name && locationState.country}
         </Typography>
       ) : (
         <Typography sx={{ ml: "10px", color: "white", fontSize: "14px" }}>

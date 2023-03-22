@@ -1,20 +1,18 @@
 import { FC } from "react";
 
 import { Box } from "@mui/material";
-
 import Location from "./components/Location";
 import DateAndTime from "./components/DateAndTime";
 import Calendar from "./components/Calendar";
 import Forecast from "./components/Forecast";
-import useTypedSelector from "./hooks/useTypedSelector";
 
+import useTypedSelector from "./hooks/useTypedSelector";
 import chooseWeatherHandler from "./helpers";
 import { weatherConditions } from "./constants";
+import { secondForecastSelector } from "./store/selectors";
 
 const App: FC = () => {
-  const currentSecondForecastData = useTypedSelector(
-    (state) => state.secondForecast,
-  );
+  const currentSecondForecastData = useTypedSelector(secondForecastSelector);
 
   const backgroundImages = chooseWeatherHandler(
     currentSecondForecastData?.secondForecast?.current?.condition?.text,

@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import axios from "axios";
 import Location from "..";
-import { IOption } from "../../../models/IOption";
 import ReduxProvider from "../../ReduxProvider";
 
 jest.mock("axios");

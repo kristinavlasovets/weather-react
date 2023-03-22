@@ -2,15 +2,20 @@ import { FC } from "react";
 
 import { Box } from "@mui/material";
 import DayItem from "../DayItem";
-import useTypedSelector from "../../hooks/useTypedSelector";
 import Skeleton from "../DayItem/skeleton";
 
+import useTypedSelector from "../../hooks/useTypedSelector";
+import {
+  forecastSelector,
+  secondForecastSelector,
+  userSelector,
+} from "../../store/selectors";
+import { UserStateApiTypes } from "../../store/reducers/userReducer/interface";
+
 const Forecast: FC = () => {
-  const currentForecastData = useTypedSelector((state) => state.forecast);
-  const currentSecondForecastData = useTypedSelector(
-    (state) => state.secondForecast,
-  );
-  const userData = useTypedSelector((state) => state.user);
+  const currentForecastData = useTypedSelector(forecastSelector);
+  const currentSecondForecastData = useTypedSelector(secondForecastSelector);
+  const userData = useTypedSelector(userSelector);
 
   return (
     <Box
@@ -55,7 +60,7 @@ const Forecast: FC = () => {
       ) : (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
-          {currentSecondForecastData.secondForecast && (
+          {currentSecondForecastData.secondForecast.current && (
             <>
               <DayItem
                 isFull

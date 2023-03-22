@@ -9,26 +9,29 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+
 import useAppDispatch from "../../hooks/useAppDispatch";
-import { setIsLoginAction } from "../../store/reducers/userReducer/actionCreators";
 import useTypedSelector from "../../hooks/useTypedSelector";
+import { userSelector } from "../../store/selectors";
+import { setIsLoginAction } from "../../store/reducers/userReducer/actionCreators";
 import { ICalendar } from "../../models/ICalendar";
 import apiCalendar from "../../http/googleCalendar_api";
 
 const Calendar: FC = () => {
   const dispatch = useAppDispatch();
-  const isLogin = useTypedSelector((state) => state.user.isLogin);
-
+  const { isLogin } = useTypedSelector(userSelector);
   const [events, setEvents] = useState<ICalendar[]>([]);
 
   const handleOnLogin = () => {
     apiCalendar.handleAuthClick();
     dispatch(setIsLoginAction(true));
   };
+
   const handleOnLogout = () => {
     apiCalendar.handleSignoutClick();
     dispatch(setIsLoginAction(false));
   };
+
   const handleCheckEvents = () => {
     apiCalendar
       .listEvents({

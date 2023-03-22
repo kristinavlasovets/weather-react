@@ -5,10 +5,10 @@ import {
 } from "./interface";
 
 const initialState: LocationState = {
-  city: "",
+  name: "",
   country: "",
-  long: "",
-  lat: "",
+  lon: 0,
+  lat: 0,
   loading: false,
   error: null,
 };
@@ -20,28 +20,28 @@ const locationReducer = (
   switch (action.type) {
     case LocationActionTypes.GET_LOCATION:
       return {
-        city: "",
+        name: "",
         country: "",
-        long: "",
-        lat: "",
+        lon: 0,
+        lat: 0,
         loading: true,
         error: null,
       };
     case LocationActionTypes.GET_LOCATION_SUCCESS:
       return {
-        city: action.payload,
-        country: action.payload,
-        long: action.payload,
-        lat: action.payload,
+        name: action.payload.name,
+        country: action.payload.country,
+        lon: action.payload.lon,
+        lat: action.payload.lat,
         loading: false,
         error: null,
       };
     case LocationActionTypes.GET_LOCATION_ERROR:
       return {
-        city: "",
+        name: "",
         country: "",
-        long: "",
-        lat: "",
+        lon: 0,
+        lat: 0,
         loading: false,
         error: action.payload,
       };

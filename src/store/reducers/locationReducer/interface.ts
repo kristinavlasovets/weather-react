@@ -1,8 +1,10 @@
+import { IOption } from "../../../models/IOption";
+
 export interface LocationState {
-  city: string;
+  name: string;
   country: string;
-  long: string;
-  lat: string;
+  lon: number;
+  lat: number;
   loading: boolean;
   error: null | string;
 }
@@ -18,7 +20,7 @@ export interface GetLocationAction {
 }
 export interface GetLocationSuccessAction {
   type: LocationActionTypes.GET_LOCATION_SUCCESS;
-  payload: any;
+  payload: IOption;
 }
 export interface GetLocationErrorAction {
   type: LocationActionTypes.GET_LOCATION_ERROR;
