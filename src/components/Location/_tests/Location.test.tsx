@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import axios from "axios";
 import Location from "..";
+import { getLocationSuccessAction } from "../../../store/reducers/locationReducer/actionCreators";
+import locationReducer from "../../../store/reducers/locationReducer/locationReducer";
 import ReduxProvider from "../../ReduxProvider";
 
 jest.mock("axios");
@@ -39,27 +41,6 @@ Object.defineProperty(global.navigator, "geolocation", {
   },
 });
 
-// describe("get location options", () => {
-//   let response: IOption;
-//   beforeEach(() => {
-//     response = {
-//       country: "BY",
-//       name: "Minsk",
-//       lat: 58.555,
-//       lon: 42.777,
-//     };
-//   });
-//   test("location options", async () => {
-//     (axios.get as jest.Mock).mockReturnValue(response);
-//     render(
-//       <ReduxProvider>
-//         <Location />
-//       </ReduxProvider>,
-//     );
-//     expect(axios.get).toBeCalledTimes(1);
-//   });
-// });
-
 test("renders default api toggle button", () => {
   render(
     <ReduxProvider>
@@ -78,4 +59,39 @@ test("renders second api toggle button", () => {
   );
   const buttonElement = screen.getByText("weather");
   expect(buttonElement).toBeInTheDocument();
+});
+
+const locationState = {
+  country: "BY",
+  name: "Minsk",
+  lat: 53.893009,
+  lon: 27.567444,
+  loading: false,
+  error: null,
+};
+
+const changeLocationState = {
+  country: "ES",
+  name: "Mallorca",
+  lat: 39.571625,
+  lon: 2.650544,
+  loading: false,
+  error: null,
+};
+
+describe("get location", () => {
+  test("get location success", () =>
+    expect(
+      locationReducer(
+        locationState,
+        getLocationSuccessAction(changeLocationState),
+      ),
+    ).toEqual({
+      country: "ES",
+      name: "Mallorca",
+      lat: 39.571625,
+      lon: 2.650544,
+      loading: false,
+      error: null,
+    }));
 });
