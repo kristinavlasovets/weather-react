@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import ReduxProvider from "../../ReduxProvider";
 import DateAndTime from "../index";
 
