@@ -10,7 +10,6 @@ import {
   secondForecastSelector,
   userSelector,
 } from "../../store/selectors";
-import { UserStateApiTypes } from "../../store/reducers/userReducer/interface";
 
 const Forecast: FC = () => {
   const currentForecastData = useTypedSelector(forecastSelector);

@@ -110,6 +110,7 @@ const Location: FC = () => {
         color="inherit"
       >
         <Button
+          className="choose-weather-btn"
           sx={{
             fontSize: { xs: "10px", md: "14px" },
           }}
@@ -123,6 +124,7 @@ const Location: FC = () => {
           {UserStateApiTypes.WEATHER_API}
         </Button>
         <Button
+          className="choose-openWeather-btn"
           sx={{
             fontSize: { xs: "10px", md: "14px" },
           }}
