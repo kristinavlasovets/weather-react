@@ -34,9 +34,6 @@ const Location: FC = () => {
   const dispatch = useAppDispatch();
   const userState = useTypedSelector(userSelector);
   const locationState = useTypedSelector(locationSelector);
-  const [currentLocation, setCurrentLocation] = useState<ILocation | null>(
-    null,
-  );
   const [location, setLocation] = useState<string>("");
   const [locationOptions, setLocationOptions] = useState<IOption[]>([]);
 
@@ -48,12 +45,27 @@ const Location: FC = () => {
         lat,
         plan: GetWeatherPlan.WEATHER,
       });
-
-      setCurrentLocation(response.data);
-      dispatch(getSecondForecastRequestAction({ lat, lon }));
-      dispatch(
-        getForecastRequestAction({ plan: GetWeatherPlan.FORECAST, lon, lat }),
-      );
+      if (
+        response.data.name === locationState.name ||
+        locationState.name === ""
+      ) {
+        dispatch(
+          getLocationSuccessAction({
+            country: response.data.sys.country,
+            lat,
+            lon,
+            name: response.data.name,
+          }),
+        );
+        dispatch(getSecondForecastRequestAction({ lat, lon }));
+        dispatch(
+          getForecastRequestAction({
+            plan: GetWeatherPlan.FORECAST,
+            lon,
+            lat,
+          }),
+        );
+      }
     });
   }, [dispatch]);
 
@@ -141,7 +153,7 @@ const Location: FC = () => {
           color: "white",
           fontSize: { xs: "16px", md: "22px" },
         }}
-        placeholder={currentLocation?.name}
+        placeholder={locationState?.name}
         value={location}
         onChange={handleOnChange}
       />
@@ -175,7 +187,7 @@ const Location: FC = () => {
         </Typography>
       ) : (
         <Typography sx={{ ml: "10px", color: "white", fontSize: "14px" }}>
-          {currentLocation?.sys.country}
+          {locationState.country}
         </Typography>
       )}
     </Box>

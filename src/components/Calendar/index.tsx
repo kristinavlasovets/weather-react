@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import {
   Box,
@@ -13,14 +13,15 @@ import {
 import useAppDispatch from "../../hooks/useAppDispatch";
 import useTypedSelector from "../../hooks/useTypedSelector";
 import { userSelector } from "../../store/selectors";
-import { setIsLoginAction } from "../../store/reducers/userReducer/actionCreators";
-import { ICalendar } from "../../models/ICalendar";
+import {
+  setEventsAction,
+  setIsLoginAction,
+} from "../../store/reducers/userReducer/actionCreators";
 import apiCalendar from "../../http/googleCalendar_api";
 
 const Calendar: FC = () => {
   const dispatch = useAppDispatch();
-  const { isLogin } = useTypedSelector(userSelector);
-  const [events, setEvents] = useState<ICalendar[]>([]);
+  const { isLogin, events } = useTypedSelector(userSelector);
 
   const handleOnLogin = () => {
     apiCalendar.handleAuthClick();
@@ -30,6 +31,7 @@ const Calendar: FC = () => {
   const handleOnLogout = () => {
     apiCalendar.handleSignoutClick();
     dispatch(setIsLoginAction(false));
+    dispatch(setEventsAction([]));
   };
 
   const handleCheckEvents = () => {
@@ -38,7 +40,7 @@ const Calendar: FC = () => {
         timeMin: new Date().toISOString(),
         timeMax: new Date(new Date().getTime() + 36000000).toISOString(),
       })
-      .then(({ result }: any) => setEvents(result.items));
+      .then(({ result }: any) => dispatch(setEventsAction(result.items)));
   };
 
   return (
@@ -88,7 +90,7 @@ const Calendar: FC = () => {
         {isLogin &&
           events &&
           events.map((item) => (
-            <ListItem disablePadding key={item.created}>
+            <ListItem disablePadding key={item.id}>
               <Chip
                 sx={{ color: "white", mr: "10px" }}
                 label={item.start.dateTime.slice(11, 16)}

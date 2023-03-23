@@ -1,3 +1,5 @@
+import { ICalendar } from "../../../models/ICalendar";
+
 export enum UserStateApiTypes {
   OPENWEATHER_API = "openWeather",
   WEATHER_API = "weather",
@@ -12,12 +14,14 @@ export interface UserState {
   isLogin: boolean;
   loading: boolean;
   error: null | string;
+  events: ICalendar[];
 }
 
 export enum UserActionTypes {
   SET_OPEN_WEATHER = "SET_OPEN_WEATHER",
   SET_WEATHER = "SET_WEATHER",
   SET_IS_LOGIN = "SET_IS_LOGIN",
+  SET_EVENTS = "SET_EVENTS",
 }
 export interface SetOpenWeather {
   type: UserActionTypes.SET_OPEN_WEATHER;
@@ -31,5 +35,9 @@ export interface SetIsLogin {
   type: UserActionTypes.SET_IS_LOGIN;
   payload: boolean;
 }
+export interface SetEvents {
+  type: UserActionTypes.SET_EVENTS;
+  payload: ICalendar[];
+}
 
-export type UserAction = SetOpenWeather | SetWeather | SetIsLogin;
+export type UserAction = SetOpenWeather | SetWeather | SetIsLogin | SetEvents;

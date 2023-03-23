@@ -1,3 +1,4 @@
+import { ICalendar } from "../../../models/ICalendar";
 import {
   UserAction,
   UserActionTypes,
@@ -10,6 +11,7 @@ const initialState: UserState = {
   isLogin: false,
   loading: false,
   error: null,
+  events: [] as ICalendar[],
 };
 
 const userReducer = (state = initialState, action: UserAction): UserState => {
@@ -28,6 +30,11 @@ const userReducer = (state = initialState, action: UserAction): UserState => {
       return {
         ...state,
         isLogin: action.payload,
+      };
+    case UserActionTypes.SET_EVENTS:
+      return {
+        ...state,
+        events: action.payload,
       };
     default:
       return state;

@@ -1,4 +1,6 @@
+import { ICalendar } from "../../../models/ICalendar";
 import {
+  SetEvents,
   SetIsLogin,
   SetOpenWeather,
   SetWeather,
@@ -20,6 +22,12 @@ export const setWeatherAction = (payload: string): SetWeather => {
 export const setIsLoginAction = (payload: boolean): SetIsLogin => {
   return {
     type: UserActionTypes.SET_IS_LOGIN,
+    payload,
+  };
+};
+export const setEventsAction = (payload: ICalendar[]): SetEvents => {
+  return {
+    type: UserActionTypes.SET_EVENTS,
     payload,
   };
 };
