@@ -49,11 +49,11 @@ const App: FC = () => {
       >
         <Box
           sx={{
-            p: { xs: "40px 0 0 20px", md: "40px 0 0 40px" },
+            pb: { xs: "20px", md: "40px" },
             width: "100%",
-            height: "20%",
+            height: "30%",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
             alignItems: "center",
           }}
         >

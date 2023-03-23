@@ -94,6 +94,7 @@ const Location: FC = () => {
     <Box
       sx={{
         margin: "0 auto",
+        pl: "20px",
         width: "100%",
         display: "flex",
         flexDirection: "column",
@@ -110,32 +111,28 @@ const Location: FC = () => {
         color="inherit"
       >
         <Button
-          className="choose-weather-btn"
           sx={{
             fontSize: { xs: "10px", md: "14px" },
           }}
           onClick={onWeatherApiSelect}
-          variant={
-            userState.api === UserStateApiTypes.WEATHER_API
-              ? "outlined"
-              : "text"
+          color={
+            userState.api === UserStateApiTypes.WEATHER_API ? "info" : "inherit"
           }
         >
-          {UserStateApiTypes.WEATHER_API}
+          W
         </Button>
         <Button
-          className="choose-openWeather-btn"
           sx={{
             fontSize: { xs: "10px", md: "14px" },
           }}
           onClick={onOpenWeatherApiSelect}
-          variant={
+          color={
             userState.api === UserStateApiTypes.OPENWEATHER_API
-              ? "outlined"
-              : "text"
+              ? "info"
+              : "inherit"
           }
         >
-          {UserStateApiTypes.OPENWEATHER_API}
+          OW
         </Button>
       </ButtonGroup>
       <InputBase

@@ -7,12 +7,6 @@ import ReduxProvider from "../../ReduxProvider";
 
 jest.mock("axios");
 
-// describe("LOAD OK", () => {
-//   it("should load without crashing", () => {
-//     cy.visit("http://localhost:3000");
-//   });
-// });
-
 describe("get current position", () => {
   let response: any | null;
   beforeEach(() => {

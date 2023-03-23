@@ -14,6 +14,7 @@ const DateAndTime: FC = () => {
     <Box
       sx={{
         margin: "10px auto",
+        pl: { xs: "20px", md: "40px" },
         width: { xs: "70%", md: "100%" },
         display: "flex",
         flexDirection: "column",
