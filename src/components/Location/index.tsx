@@ -119,7 +119,7 @@ const Location: FC = () => {
             userState.api === UserStateApiTypes.WEATHER_API ? "info" : "inherit"
           }
         >
-          W
+          daily
         </Button>
         <Button
           sx={{
@@ -132,7 +132,7 @@ const Location: FC = () => {
               : "inherit"
           }
         >
-          OW
+          hourly
         </Button>
       </ButtonGroup>
       <InputBase
