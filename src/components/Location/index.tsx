@@ -101,33 +101,47 @@ const Location: FC = () => {
       }}
     >
       <ButtonGroup
-        sx={{ mb: "10px", color: "white", height: "20px" }}
+        sx={{
+          mb: "10px",
+          color: "white",
+          height: "20px",
+        }}
         variant="text"
         color="inherit"
       >
         <Button
+          sx={{
+            fontSize: { xs: "10px", md: "14px" },
+          }}
           onClick={onWeatherApiSelect}
-          color={
+          variant={
             userState.api === UserStateApiTypes.WEATHER_API
-              ? "primary"
-              : "inherit"
+              ? "outlined"
+              : "text"
           }
         >
           {UserStateApiTypes.WEATHER_API}
         </Button>
         <Button
+          sx={{
+            fontSize: { xs: "10px", md: "14px" },
+          }}
           onClick={onOpenWeatherApiSelect}
-          color={
+          variant={
             userState.api === UserStateApiTypes.OPENWEATHER_API
-              ? "primary"
-              : "inherit"
+              ? "outlined"
+              : "text"
           }
         >
           {UserStateApiTypes.OPENWEATHER_API}
         </Button>
       </ButtonGroup>
       <InputBase
-        sx={{ ml: "10px", color: "white", fontSize: "22px" }}
+        sx={{
+          ml: "10px",
+          color: "white",
+          fontSize: { xs: "16px", md: "22px" },
+        }}
         placeholder={currentLocation?.name}
         value={location}
         onChange={handleOnChange}

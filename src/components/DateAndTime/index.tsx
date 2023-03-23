@@ -14,16 +14,23 @@ const DateAndTime: FC = () => {
     <Box
       sx={{
         margin: "10px auto",
-        width: "100%",
+        width: { xs: "70%", md: "100%" },
         display: "flex",
         flexDirection: "column",
       }}
     >
-      <Typography sx={{ color: "white", fontSize: "54px" }} data-testid="time">
+      <Typography
+        sx={{ color: "white", fontSize: { xs: "36px", md: "54px" } }}
+        data-testid="time"
+      >
         {date?.toTimeString().slice(0, 8)}
       </Typography>
       <Typography
-        sx={{ pl: "10px", color: "white", fontSize: "20px" }}
+        sx={{
+          pl: "10px",
+          color: "white",
+          fontSize: { xs: "14px", md: "20px" },
+        }}
         data-testid="date"
       >
         {date?.toDateString().slice(0, 15)}

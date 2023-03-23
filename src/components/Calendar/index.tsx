@@ -54,13 +54,24 @@ const Calendar: FC = () => {
       <ButtonGroup sx={{ height: "20px" }} variant="text" color="inherit">
         {isLogin ? (
           <>
-            <Button sx={{ color: "white" }} onClick={handleCheckEvents}>
+            <Button
+              sx={{ color: "white", fontSize: { xs: "10px", md: "14px" } }}
+              onClick={handleCheckEvents}
+            >
               Check my Google Calendar
             </Button>
-            <Button onClick={handleOnLogout}>Log out</Button>
+            <Button
+              sx={{ fontSize: { xs: "10px", md: "14px" } }}
+              onClick={handleOnLogout}
+            >
+              Log out
+            </Button>
           </>
         ) : (
-          <Button sx={{ color: "white" }} onClick={handleOnLogin}>
+          <Button
+            sx={{ color: "white", fontSize: { xs: "10px", md: "14px" } }}
+            onClick={handleOnLogin}
+          >
             Log in to Google Calendar
           </Button>
         )}
@@ -68,7 +79,7 @@ const Calendar: FC = () => {
       <List
         sx={{
           color: "white",
-          fontSize: "32px",
+          fontSize: { xs: "10px", md: "16px" },
           height: "200px",
           width: "50%",
           overflow: "auto",
